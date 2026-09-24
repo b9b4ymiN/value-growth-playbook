@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือเลือกหุ้น — มูลค่า + การเติบโต</title>
+<meta name="description" content="Template วิเคราะห์หุ้นทีละขั้น: คุณภาพกำไร การเติบโต เงินสด งบดุล ผู้บริหาร และราคา พร้อมเกณฑ์ตัวเลขกรองหุ้นสำหรับตลาดไทย">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1c2733; --mut:#5b6b7b; --line:#e3e8ee;
+  --acc:#0e7c66; --acc2:#0a5c4c; --amber:#b45309; --red:#c2410c; --green:#15803d;
+  --chip-bg:#e7f4f0; --code:#f0f3f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Thai',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+/* header */
+header{background:linear-gradient(135deg,#0a3d33 0%,#0e7c66 100%);color:#fff;padding:40px 0 28px}
+header h1{font-size:clamp(1.5rem,5vw,2.2rem);font-weight:800;line-height:1.3}
+header p{margin-top:10px;opacity:.92;font-size:.98rem}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:3px 12px;font-size:.8rem;margin-top:14px}
+nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:8px 16px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{white-space:nowrap;font-size:.85rem;color:var(--mut);text-decoration:none;padding:5px 11px;border-radius:99px;font-weight:500}
+nav a:hover{background:var(--chip-bg);color:var(--acc2)}
+#bar{height:3px;background:var(--acc);width:0%;transition:width .3s}
+
+/* sections */
+main{padding:24px 0 8px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;margin-bottom:20px}
+.step-tag{display:inline-flex;align-items:center;gap:8px;background:var(--chip-bg);color:var(--acc2);font-weight:700;font-size:.85rem;border-radius:99px;padding:4px 14px;margin-bottom:10px}
+h2{font-size:1.25rem;font-weight:800;margin-bottom:6px}
+h3{font-size:1.02rem;font-weight:700;margin:18px 0 8px}
+p.lead{color:var(--mut);font-size:.95rem}
+.note{background:var(--code);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:12px 14px;font-size:.92rem;margin:12px 0}
+.warn{background:#fdf3ec;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:12px 14px;font-size:.92rem;margin:12px 0}
+.good{background:#effaf1;border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:12px 14px;font-size:.92rem;margin:12px 0}
+code{background:var(--code);padding:1px 7px;border-radius:6px;font-size:.9em;font-family:'Consolas','Sarabun',monospace}
+.formula{background:var(--code);border-radius:10px;padding:12px 16px;font-family:'Consolas',monospace;font-size:.92rem;margin:10px 0;overflow-x:auto;white-space:pre}
+
+/* tables */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th{background:#eef2f5;text-align:left;padding:9px 12px;font-weight:700;white-space:nowrap;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.ok{color:var(--green);font-weight:700}
+.mid{color:var(--amber);font-weight:700}
+.bad{color:var(--red);font-weight:700}
+
+/* checklists */
+.ck-list{list-style:none;margin:10px 0}
+.ck-list li{padding:7px 4px;border-bottom:1px dashed var(--line);display:flex;gap:10px;align-items:flex-start}
+.ck-list li:last-child{border-bottom:none}
+.ck{accent-color:var(--acc);width:19px;height:19px;flex-shrink:0;margin-top:3px;cursor:pointer}
+.ck-list label{cursor:pointer;flex:1}
+
+/* details */
+details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fbfcfd}
+summary{cursor:pointer;padding:11px 14px;font-weight:600;font-size:.93rem;color:var(--acc2)}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .inner{padding:12px 16px;font-size:.92rem}
+details .inner p{margin-bottom:8px}
+
+/* scorecard */
+.sc-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.sc-row:last-of-type{border-bottom:none}
+.sc-name{flex:1 1 240px;font-size:.93rem;font-weight:500}
+.sc-name small{display:block;color:var(--mut);font-weight:400}
+.sc-btns{display:flex;gap:6px}
+.sc-btns button{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font-size:.82rem;cursor:pointer;font-family:inherit;color:var(--mut)}
+.sc-btns button.on[data-v="p"]{background:var(--green);border-color:var(--green);color:#fff}
+.sc-btns button.on[data-v="w"]{background:var(--amber);border-color:var(--amber);color:#fff}
+.sc-btns button.on[data-v="f"]{background:var(--red);border-color:var(--red);color:#fff}
+#sc-sum{margin-top:14px;background:var(--code);border-radius:10px;padding:12px 16px;font-size:.95rem}
+
+/* steps map grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0}
+.g-item{background:#fbfcfd;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.85rem}
+.g-item b{display:block;color:var(--acc2);font-size:.78rem;margin-bottom:2px}
+
+/* principle cards */
+.prin{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+@media(min-width:640px){.prin{grid-template-columns:repeat(3,1fr)}}
+.p-card{background:#fbfcfd;border:1px solid var(--line);border-radius:10px;padding:14px}
+.p-card b{color:var(--acc2);display:block;margin-bottom:4px;font-size:.95rem}
+.p-card span{font-size:.88rem;color:var(--mut)}
+
+footer{background:#0a3d33;color:#cfe8e0;padding:26px 0 34px;font-size:.85rem;margin-top:24px}
+footer .wrap{padding:0 16px}
+footer a{color:#9fd8c8}
+.up{position:fixed;right:14px;bottom:14px;background:var(--acc);color:#fff;border-radius:99px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+@media print{header{background:#0a3d33!important;-webkit-print-color-adjust:exact}.up,nav{display:none}}
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="wrap">
+    <h1>คู่มือเลือกหุ้น — มูลค่า + การเติบโต</h1>
+    <p>วิเคราะห์ทีละขั้น จากคุณภาพธุรกิจสู่ราคาที่คุ้มค่า พร้อมเกณฑ์ตัวเลขสำหรับตลาดหุ้นไทย</p>
+    <span class="badge">Research / Education only — ไม่ใช่คำแนะนำการลงทุน</span>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#map">แผนที่ 9 ขั้น</a>
+  <a href="#s0">ฟิลเตอร์เร็ว</a>
+  <a href="#s1">รู้จักธุรกิจ</a>
+  <a href="#s2">คุณภาพกำไร</a>
+  <a href="#s3">การเติบโต</a>
+  <a href="#s4">เงินสด</a>
+  <a href="#s5">งบดุล</a>
+  <a href="#s6">ผู้บริหาร</a>
+  <a href="#s7">ราคา</a>
+  <a href="#s8">ตัดสินใจ</a>
+  <a href="#num">เกณฑ์ตัวเลข</a>
+  <a href="#why">เหตุผลชุดค่า</a>
+</div><div id="bar"></div></nav>
+
+<main class="wrap">
+
+<section>
+  <h2>หลักคิดก่อนเริ่ม</h2>
+  <div class="prin">
+    <div class="p-card"><b>5 ปี = เรื่องราว</b><span>กำไรปีเดียวคือจุดข้อมูลหนึ่งจุด ทุกค่าต้องดูเป็นแนวโน้ม 5 ปี — ทิศทางสำคัญกว่าตัวเลขเด็ดขาด</span></div>
+    <div class="p-card"><b>ธุรกิจก่อน ราคาทีหลัง</b><span>ตรวจคุณภาพธุรกิจ (ขั้น 2-6) ให้จบ แล้วค่อยดูราคา (ขั้น 7) — ราคาถูกจะหลอกให้รักธุรกิจห่วย</span></div>
+    <div class="p-card"><b>ถูก ไม่แก้ ห่วย</b><span>ธุรกิจไม่ดี + ราคาถูก = value trap ตัดทิ้งได้เลย — ส่วนใหญ่ของหุ้นตกตั้งแต่ขั้นต้นๆ ประหยัดเวลาได้มาก</span></div>
+  </div>
+</section>
+
+<section id="map">
+  <h2>แผนที่การวิเคราะห์ 9 ขั้น</h2>
+  <div class="grid">
+    <div class="g-item"><b>ขั้น 0</b>ฟิลเตอร์เร็วทั้งตลาด</div>
+    <div class="g-item"><b>ขั้น 1</b>รู้จักธุรกิจ + เลือกชุดค่า</div>
+    <div class="g-item"><b>ขั้น 2</b>คุณภาพกำไร + ROIC</div>
+    <div class="g-item"><b>ขั้น 3</b>เติบโตของจริงหรือปลอม</div>
+    <div class="g-item"><b>ขั้น 4</b>เงินสด + FCF</div>
+    <div class="g-item"><b>ขั้น 5</b>งบดุล + ความอยู่รอด</div>
+    <div class="g-item"><b>ขั้น 6</b>คุณภาพผู้บริหาร</div>
+    <div class="g-item"><b>ขั้น 7</b>ราคาแพงหรือถูก</div>
+    <div class="g-item"><b>ขั้น 8</b>สรุปและตัดสินใจ</div>
+  </div>
+  <div class="note">เดินตามลำดับ ห้ามสลับ — ขั้นไหนไม่ผ่านชัดเจนให้หยุดทันที · เวลาโดยประมาณ: ฟิลเตอร์ 5 นาที / รอบเต็ม 2-3 ชม.ต่อหุ้น</div>
+</section>
+
+<section id="s0">
+  <span class="step-tag">ขั้นที่ 0 · 5 นาที</span>
+  <h2>ฟิลเตอร์เร็วทั้งตลาด</h2>
+  <p class="lead">ถ้ายังไม่มีตัวเป้าหมาย ใช้ 3 ขานี้คัดจากข้อมูลทั้งตลาดก่อน แล้วเอาตัวที่ผ่านมารัน template เต็ม</p>
+  <div class="scroll"><table>
+    <tr><th>ขา</th><th>เกณฑ์คร่าวๆ</th><th>กรองอะไรออก</th></tr>
+    <tr><td><b>EP</b> (Earnings yield = EPS 4 ไตรมาส ÷ ราคา)</td><td>สูงกว่า 50% แรกของตลาด</td><td>ตัวที่แพงเกิน</td></tr>
+    <tr><td><b>ROIC</b></td><td>&gt; 10%</td><td>ธุรกิจที่ทำกำไรไม่คุ้มทุน</td></tr>
+    <tr><td><b>EPS ACCEL</b></td><td>กำไรต่อหุ้นไตรมาสล่าสุดโตเร็วกว่าไตรมาสก่อน (เทียบปีก่อน)</td><td>ตัวที่กำไรกำลังชะลอ</td></tr>
+  </table></div>
+  <div class="note">หุ้นการเงิน (ธนาคาร/ประกัน) ข้ามขา ROIC ได้ เพราะงบโครงสร้างต่างจากธุรกิจทั่วไป</div>
+</section>
+
+<section id="s1">
+  <span class="step-tag">ขั้นที่ 1 · 15 นาที</span>
+  <h2>รู้จักธุรกิจ + เลือกชุดค่าให้ถูก</h2>
+  <h3>1.1 เขียนธุรกิจเป็นประโยคเดียว</h3>
+  <div class="formula">"บริษัทนี้ขาย ______ ให้ ______ และได้กำไรจาก ______"</div>
+  <p>เขียนจบด้วยความมั่นใจ → ผ่านไปต่อ · เขียนไม่ได้ → หยุด ไปอ่าน One Report ก่อน</p>
+  <h3>1.2 จำแนกประเภท — ใช้ผิดชุด = สรุปผิดทั้งหมด</h3>
+  <div class="scroll"><table>
+    <tr><th>ประเภท</th><th>สังเกตจาก</th><th>ชุดค่าที่ใช้</th><th>ห้ามใช้</th></tr>
+    <tr><td><b>ธุรกิจทั่วไป</b></td><td>ขายสินค้า/บริการ</td><td>ทุกอย่างในคู่มือนี้</td><td>—</td></tr>
+    <tr><td><b>ธนาคาร / ประกัน</b></td><td>รายได้จากดอกเบี้ย/เบี้ยประกัน</td><td>P/B, ROE, NIM, NPL (ประกันชีวิต: embedded value)</td><td class="bad">ROIC, FCF, EV/EBITDA</td></tr>
+    <tr><td><b>วงจรสินค้าโภคภัณฑ์</b></td><td>ราคาขายผูกกับตลาดโลก</td><td>normalize กลางวงจร แล้วค่อยเทียบ P/E</td><td class="bad">P/E จากกำไรพีค</td></tr>
+    <tr><td><b>REIT / กองทรัสต์</b></td><td>ถืออสังหาฯ ให้เช่า</td><td>P/FFO, อัตราผลตอบแทน, NAV</td><td class="bad">P/E ปกติ</td></tr>
+  </table></div>
+  <details><summary>💡 เหตุผลว่าทำไมแต่ละชุดค่าใช้ได้ / ใช้ไม่ได้ (กดเพื่ออ่าน)</summary>
+    <div class="inner">
+      <p><b>หลักร่วม:</b> ทุกสูตรถูกออกแบบบนสมมติฐานว่างบมีหน้าตาเหมือนธุรกิจทั่วไป (หนี้ = เงินกู้มาลงทุน · กำไร ≈ เงินสด · ทรัพย์สินเสื่อมสม่ำเสมอ) ธุรกิจไหนทำให้สมมติฐานพัง สูตรนั้น "บอกทิศทางผิด" ไม่ใช่แค่แม่นน้อยลง</p>
+      <p><b>🏦 ธนาคาร — ROIC/FCF/EV-EBITDA ใช้ไม่ได้ เพราะ "หนี้" ของธนาคารไม่ใช่หนี้:</b> หนี้ส่วนใหญ่ของธนาคารคือเงินฝากลูกค้า = <b>วัตถุดิบ</b>ของธุรกิจ (ซื้อมา 1.5% ขายต่อเป็นสินเชื่อ 6%) ไม่ใช่เงินกู้มาซื้อโรงงาน → เอาไปหารใน ROIC หรือบวกเข้า EV คือ "นับสินค้าคงคลังเป็นภาระหนี้" ส่วน FCF จะ<b>ติดลบตลอดกาล</b>เฉพาะธนาคารที่โตดี เพราะการปล่อยกู้เพิ่มนับเป็นการใช้เงินสดในทางบัญชี — ทิศทางตรงข้ามความจริง ส่วน P/B, ROE, NIM, NPL ทำงานได้เพราะแบ่ง/เทียบด้วย <b>ส่วนผู้ถือหุ้น = ทุนเจ้าของจริงๆ</b> ตัวเดียวที่ความหมายเหมือนเดิมทุกธุรกิจ</p>
+      <p><b>⛏️ วงจรสินค้าโภคภัณฑ์ — P/E กลับหัว:</b> ตอนราคาสินค้าพีค กำไรพุ่ง → P/E ต่ำที่สุดพอดี ทั้งที่นั่นคือยอดเขาที่กำไรกำลังจะลด (ซื้อ "ถูก" บนยอดเขา) ตอนก้นบ่อ กำไรหาย → P/E แพงสุด ทั้งที่นั่นคือจุดควรซื้อ วิธีแก้: เอา margin เฉลี่ย 5-10 ปี × รายได้ปัจจุบัน = "กำไรกลางวงจร" แล้วค่อยเทียบราคา</p>
+      <p><b>🏢 REIT — P/E แพงเกินจริงตลอด:</b> กฎบัญชีบังคับตั้งค่าเสื่อมอาคารทุกปี แต่อาคารทำเลดีไม่ได้เสื่อมตามตารางบัญชี → กำไรสุทธิต่ำกว่าเงินสดจริงมาก จึงใช้ FFO (กำไร + ค่าเสื่อมยกกลับ) แทน และเพราะ REIT ถูกบังคับจ่ายปันผล ~90% ผู้ถือหุ้นจึงกินจากปันผล = ดู "อัตราผลตอบแทน" เหมือนซื้อบ้านให้เช่า ส่วน NAV ชี้ว่าจ่ายถูกหรือแพงกับวัตถุจริง</p>
+      <p><b>✅ ธุรกิจทั่วไปใช้ได้ครบ</b> เพราะโครงสร้างงบตรงกับสมมติฐานของทุกสูตรพอดี</p>
+    </div>
+  </details>
+  <h3>1.3 เช็คความน่าเชื่อถือของงบ</h3>
+  <ul class="ck-list">
+    <li><input type="checkbox" class="ck" id="c11"><label for="c11">งบผ่านการตรวจสอบ (AUDIT) ไม่มีข้อสังเกต</label></li>
+    <li><input type="checkbox" class="ck" id="c12"><label for="c12">ยื่นงบตรงเวลาต่อเนื่อง (เช็คที่ set.or.th)</label></li>
+    <li><input type="checkbox" class="ck" id="c13"><label for="c13">ไม่มีการเปลี่ยนผู้สอบบัญชีบ่อยผิดปกติ</label></li>
+  </ul>
+</section>
+
+<section id="s2">
+  <span class="step-tag">ขั้นที่ 2 · 30 นาที</span>
+  <h2>คุณภาพกำไร</h2>
+  <h3>2.1 อัตรากำไร 3 ตัว — ดูทิศทาง 5 ปี</h3>
+  <div class="scroll"><table>
+    <tr><th>ค่า</th><th class="ok">✅ ผ่าน</th><th class="mid">⚠️ เฝ้าระวัง</th><th class="bad">❌ ไม่ผ่าน</th></tr>
+    <tr><td><b>Gross margin</b></td><td>สูงกว่าเพื่อนในอุตสาหกรรม + ทรงตัว/ขึ้น</td><td>แบน</td><td>หดต่อเนื่อง 2 ปี</td></tr>
+    <tr><td><b>Operating margin</b></td><td>&gt; 10% + เพิ่มขึ้น</td><td>5-10%</td><td>&lt; 5% หรือผันผวนแรง</td></tr>
+    <tr><td><b>Net margin</b></td><td>สูงกว่าค่าเฉลี่ยอุตสาหกรรม</td><td>ใกล้ค่าเฉลี่ย</td><td>ต่ำกว่าโดยไม่มีเหตุผล</td></tr>
+  </table></div>
+  <div class="note">gross margin ขึ้น = มีอำนาจตั้งราคา (ทนทานที่สุด) · operating margin ขึ้นเร็วกว่า gross = เกิด operating leverage</div>
+  <h3>2.2 ROE — ผลตอบแทนบนเงินทุนเรา</h3>
+  <p>เกณฑ์: <span class="ok">✅ เฉลี่ย 5 ปี ≥ 12%</span> · <span class="mid">⚠️ 8-12%</span> · <span class="bad">❌ &lt; 8% หรือดีปีแย่ปีสลับกันเองไม่ได้</span></p>
+  <h3>2.3 ROIC — การทดสอบการสร้างมูลค่า (ค่าสำคัญที่สุด)</h3>
+  <div class="formula">ROIC = กำไรดำเนินงาน × (1 − ภาษี) ÷ (หนี้สิน + ส่วนผู้ถือหุ้น − เงินสด)</div>
+  <div class="scroll"><table>
+    <tr><th>ผล</th><th>แปลว่า</th></tr>
+    <tr><td class="ok">ROIC &gt; 12% ทรงตัว/ขึ้น</td><td>✅ สร้างมูลค่าแน่น — การเติบโตของบริษัทนี้ <b>คุ้มที่จะจ่ายแพง</b></td></tr>
+    <tr><td class="mid">ROIC 8-12%</td><td>⚠️ สร้างมูลค่าบาง ต้องการ margin ผิดพลาดน้อยมาก</td></tr>
+    <tr><td class="bad">ROIC &lt; 8%</td><td>❌ <b>ยิ่งโตยิ่งทำลายมูลค่า</b> — จบที่ขั้นนี้ได้เลย</td></tr>
+  </table></div>
+</section>
+
+<section id="s3">
+  <span class="step-tag">ขั้นที่ 3 · 20 นาที</span>
+  <h2>ตรวจว่าการเติบโต ของจริงหรือปลอม</h2>
+  <h3>3.1 Growth Gate 3 บาน — ต้องผ่านทั้งหมด</h3>
+  <ul class="ck-list">
+    <li><input type="checkbox" class="ck" id="c31"><label for="c31">บาน 1 — รายได้โต 2 ปีติดต่อกัน</label></li>
+    <li><input type="checkbox" class="ck" id="c32"><label for="c32">บาน 2 — กำไรดำเนินงานโต 2 ปีติดต่อกัน (ไม่ใช่แค่รายได้)</label></li>
+    <li><input type="checkbox" class="ck" id="c33"><label for="c33">บาน 3 — Operating margin ปีล่าสุด ≥ ค่าเฉลี่ย 5 ปี</label></li>
+  </ul>
+  <div class="warn">ตกบานไหน = การโตที่เห็นอาจเป็นแค่ "ฟื้นจากปีที่แย่" — <b>ห้าม</b>เอาอัตราโตไปคูณคาดการณ์ต่อ (นับการฟื้นซ้ำสองบาท)</div>
+  <h3>3.2 สแกนกำไรพิเศษ — ตัดออกก่อนชมการเติบโต</h3>
+  <div class="scroll"><table>
+    <tr><th>ตัดออกได้ (ไม่เกิดซ้ำ)</th><th>ห้ามตัด (คือตัวธุรกิจจริง)</th></tr>
+    <tr><td>กำไร/ขาดทุนจากขายสินทรัพย์ ที่ดิน บริษัทลูก</td><td>ภาษีนำเข้า / ภาษีใหม่</td></tr>
+    <tr><td>เงินประเมินมูลค่าสินทรัพย์, impairment</td><td>ราคาวัตถุดิบขึ้นลง (นั่นคือวงจร)</td></tr>
+    <tr><td>กำไร/ขาดทุนแปลงเงินตรา (FX)</td><td>ค่าปรับโครงสร้างที่เกิดซ้ำทุกปี</td></tr>
+    <tr><td>เงินชดเชยประกัน, คดีความ, ภาษีคืน</td><td>แรงกดดันราคาคู่แข่ง</td></tr>
+  </table></div>
+  <div class="note">จำง่าย: ถามว่า <b>"ถ้าไม่มีอะไรเปลี่ยน ปีหน้าเกิดซ้ำไหม?"</b> — ซ้ำ = นับ, ไม่ซ้ำ = ตัด</div>
+  <h3>3.3 เช็คความเร่ง (EPS Acceleration)</h3>
+  <p>เทียบ EPS กับปีก่อนของไตรมาสเดียวกัน (YoY): อัตราโตเร่งขึ้นต่อเนื่อง = <span class="ok">โมเมนตัมกำไรแรง</span> · ชะลอ = <span class="mid">ระวังจุดพีค</span></p>
+</section>
+
+<section id="s4">
+  <span class="step-tag">ขั้นที่ 4 · 20 นาที</span>
+  <h2>เงินสด: กำไรในกระดาษ หรือเงินในธนาคาร</h2>
+  <div class="formula">FCF = กระแสเงินสดจากการดำเนินงาน (OCF) − เงินลงทุน (CapEx)</div>
+  <p>เกณฑ์: <span class="ok">✅ FCF บวก ≥ 3 ใน 5 ปี</span> · <span class="bad">❌ FCF ติดลบต่อเนื่องทั้งที่กำไรบัญชีดี = สงสัยคุณภาพกำไร ย้อนไปตรวจขั้นที่ 2</span></p>
+  <h3>จับคู่ CapEx vs FCF — ค่าที่คนมองข้ามมากที่สุด</h3>
+  <div class="scroll"><table>
+    <tr><th>รูปแบบ</th><th>ความหมาย</th><th>ผล</th></tr>
+    <tr><td>CapEx ขึ้น <b>และ</b> FCF ขึ้นด้วย</td><td>ลงทุนแล้วได้เงินคืนจริง</td><td class="ok">✅ สัญญาณทองคำ</td></tr>
+    <tr><td>CapEx ขึ้น แต่ FCF แบน/ลด</td><td>กินเงินที่ควรจะได้ — รอดู FCF พลิกไหมใน 1-2 ปี</td><td class="mid">⚠️</td></tr>
+    <tr><td>CapEx ต่ำ แต่ FCF สูงมาก</td><td>เก็บเกี่ยว — ดีวันนี้ แต่ถามว่าอนาคตโตจากไหน</td><td class="mid">⚠️</td></tr>
+    <tr><td>FCF ติดลบ CapEx สูง</td><td>เทเงินสร้างฐาน — ยอมรับเฉพาะธุรกิจระยะเริ่มที่ unit economics ชัด</td><td class="bad">❌</td></tr>
+  </table></div>
+</section>
+
+<section id="s5">
+  <span class="step-tag">ขั้นที่ 5 · 15 นาที</span>
+  <h2>งบดุล: ความอยู่รอด</h2>
+  <div class="scroll"><table>
+    <tr><th>สังเกต</th><th>แปลว่า</th></tr>
+    <tr><td>D/E ลดลงต่อเนื่อง 3-5 ปี</td><td class="ok">✅ วินัยทางการเงิน ความเสี่ยงลดทุกปี</td></tr>
+    <tr><td>D/E ขึ้น แต่เพื่อลงทุนในกิจการ ROIC สูง</td><td class="mid">⚠️ ยอมรับได้ ตราบที่ ROIC &gt; ต้นทุนเงินทุน</td></tr>
+    <tr><td>D/E ขึ้น แต่ ROIC แบน/ลด</td><td class="bad">❌ กู้มาโดยไม่มีผลตอบแทนมารองรับ</td></tr>
+    <tr><td><b>Net debt ติดลบ</b> (เงินสด &gt; หนี้)</td><td class="ok">✅✅ ฟอร์เทรส — สำคัญมากกับหุ้นเล็กไทย (net cash &gt; 20% ของ market cap = hidden value)</td></tr>
+    <tr><td>Net debt/EBITDA &gt; 3 เท่า</td><td class="bad">❌ กำไรผันผวนเล็กน้อยก็กระทบความอยู่รอด</td></tr>
+  </table></div>
+</section>
+
+<section id="s6">
+  <span class="step-tag">ขั้นที่ 6 · 20 นาที</span>
+  <h2>ผู้บริหารจัดการเงินเราดีไหม</h2>
+  <p class="lead">3 ค่าที่งบกำไร "ไม่เคยบอก" — หุ้นไทยส่วนใหญ่เป็นธุรกิจตระกูล ห้ามข้าม</p>
+  <h3>6.1 การเจือจาง (จำนวนหุ้น 5 ปี ปรับ split แล้ว)</h3>
+  <div class="scroll"><table>
+    <tr><th>โตเฉลี่ยต่อปี</th><th>แปลว่า</th></tr>
+    <tr><td>&lt; 2%</td><td class="ok">✅ ปกติ</td></tr>
+    <tr><td>2-5%</td><td class="mid">⚠️ หาว่าออกใหม่ไปทำอะไร</td></tr>
+    <tr><td>&gt; 5%</td><td class="bad">❌ เราถูกเจือจาง — กำไรต่อหุ้นโตช้ากว่ากำไรรวมเสมอ</td></tr>
+  </table></div>
+  <h3>6.2 Goodwill ÷ สินทรัพย์รวม (ร่องรอยซื้อกิจการแพงเกิน)</h3>
+  <ul class="ck-list">
+    <li><input type="checkbox" class="ck" id="c62"><label for="c62">&lt; 10% → ปกติ ผ่าน</label></li>
+    <li><input type="checkbox" class="ck" id="c62b"><label for="c62b">10-20% → ดูว่าดีลที่ซื้อมาสร้างผลตอบแทนได้จริงไหม</label></li>
+    <li><input type="checkbox" class="ck" id="c62c"><label for="c62c">&gt; 20% หรือ jump ใหญ่ปีใดปีหนึ่ง → ต้องไล่ดีลนั้น: ซื้อมาแล้ว ROIC ขึ้นหรือลง</label></li>
+  </ul>
+  <div class="warn">กลไกการหลอก: ซื้อกิจการแพงเกิน → กำไรรวม "โชว์เป็น growth" ทันที แต่ความเสียหายซ่อนใน goodwill และ ROIC — งบกำไรชี้ทางที่ผิด</div>
+  <h3>6.3 Related party (ดูที่ "หมายเหตุประกอบงบ" ท้ายงบ)</h3>
+  <ul class="ck-list">
+    <li><input type="checkbox" class="ck" id="c63"><label for="c63">ไม่มี หรือ &lt; 5% ของต้นทุนขาย → ✅ ผ่าน</label></li>
+    <li><input type="checkbox" class="ck" id="c63b"><label for="c63b">5-15% → ⚠️ อ่านว่าราคาที่ตกลง ถูกต้องตามตลาดไหม</label></li>
+    <li><input type="checkbox" class="ck" id="c63c"><label for="c63c">&gt; 15% → ❌ อัตรากำไรที่เห็นถูก "ตั้ง" โดยดีลพวกนี้ ไม่ใช่โดยตลาด</label></li>
+  </ul>
+  <h3>6.4 เงินปันผล</h3>
+  <div class="scroll"><table>
+    <tr><th>สังเกต</th><th>ผล</th></tr>
+    <tr><td>Payout &lt; 60% + DPS ขึ้น</td><td class="ok">✅ ปันผลปลอดภัยและโตได้</td></tr>
+    <tr><td>DPS ขึ้น "พร้อม" payout ลด</td><td class="ok">✅✅ กำไรโตเร็วกว่าปันผล — สุขภาพดีที่สุด</td></tr>
+    <tr><td>Payout &gt; 80%</td><td class="bad">❌ ไม่มีเบาะ — กำไรลดนิดเดียวต้องตัดปันผล</td></tr>
+  </table></div>
+</section>
+
+<section id="s7">
+  <span class="step-tag">ขั้นที่ 7 · 30 นาที</span>
+  <h2>ราคา: แพงหรือถูก (ทำท้ายสุดเสมอ)</h2>
+  <p class="lead">คำถามไม่ใช่ "ถูกไหม" แต่คือ "ถูกเมื่อเทียบกับคุณภาพที่ตรวจมาแล้วไหม" — P/E 8 เท่าไม่มีความหมายในตัวเอง</p>
+  <h3>เทียบ 3 ทาง</h3>
+  <div class="scroll"><table>
+    <tr><th>เทียบกับ</th><th>อ่านอย่างไร</th></tr>
+    <tr><td><b>อดีตตัวเอง 5 ปี</b></td><td>ต่ำกว่าค่าเฉลี่ยอดีตตัวเอง = ตลาดให้ราคาแย่กว่าเมื่อก่อน — ถามว่าธุรกิจแย่ลงจริง หรือตลาดเข้าใจผิด</td></tr>
+    <tr><td><b>เพื่อนร่วมอุตสาหกรรม 4-6 ตัว</b></td><td>ต่ำกว่าเพื่อน = สนใจ — แต่เพื่อนต้องเป็นธุรกิจเดียวกัน ประเทศเดียวกันจริงๆ (ใช้ค่ามัธยฐาน)</td></tr>
+    <tr><td><b>คุณภาพที่รองรับ</b></td><td>ROIC สูง + โตจริง + ลดหนี้ แต่ราคาต่ำกว่าอดีตตัวเองและเพื่อน = <b>setup ที่ทุกเกณฑ์ชี้ทางเดียวกัน</b></td></tr>
+  </table></div>
+  <h3>สัญญาณพิเศษ (Anomaly scan)</h3>
+  <ul class="ck-list">
+    <li><input type="checkbox" class="ck" id="c71"><label for="c71">Net cash ÷ Market cap &gt; 20% → สนใจมาก (hidden value)</label></li>
+    <li><input type="checkbox" class="ck" id="c72"><label for="c72">P/B &lt; 1 พร้อม ROE ดี → ต้องหาเหตุผลให้เจอ มักมีเหตุผลจริง (governance, related party, สภาพคล่อง)</label></li>
+    <li><input type="checkbox" class="ck" id="c73"><label for="c73">ถือหุ้นบริษัทอื่น? คิด "มูลค่าหุ้นที่ถือ ÷ จำนวนหุ้นตัวเอง" เทียบราคาตลาด — บางทีหุ้นที่ถือแพงกว่าราคาบริษัทตัวเองทั้งตัว</label></li>
+    <li><input type="checkbox" class="ck" id="c74"><label for="c74">ปันผลปีนี้จ่ายจากกำไรธุรกิจจริง หรือจากเงินขายสินทรัพย์</label></li>
+  </ul>
+</section>
+
+<section id="s8">
+  <span class="step-tag">ขั้นที่ 8 · 15 นาที</span>
+  <h2>สรุปและตัดสินใจ</h2>
+  <h3>8.1 Scorecard (กดเลือก ✅ / ⚠️ / ❌ — จำไว้ในเครื่องนี้อัตโนมัติ)</h3>
+  <div id="scorecard"></div>
+  <div id="sc-sum">เริ่มกดประเมินแต่ละหมวด — สรุปจะโผล่ตรงนี้</div>
+  <h3>8.2 กฎการตัดสิน</h3>
+  <div class="scroll"><table>
+    <tr><th>รูปแบบผลลัพธ์</th><th>แปลว่า</th><th>ทำอย่างไรต่อ</th></tr>
+    <tr><td class="ok">ธุรกิจดี + โตจริง + ราคาถูก</td><td>ตัวเลือกจริง</td><td>ลงลึกต่อ: reverse DCF + ปูเพื่อนเทียบ + ติดตามงบไตรมาสหน้า</td></tr>
+    <tr><td class="mid">ธุรกิจดี + โตจริง แต่ราคาแพง</td><td>ของดีแพง</td><td>watchlist ตั้งราคาที่คุ้มไว้ รอตลาดขว้างผ้าเปียก</td></tr>
+    <tr><td class="bad">ธุรกิจไม่ดี แต่ราคาถูก</td><td>value trap</td><td>ผ่าน — "ถูก" ไม่เคยแก้ "ธุรกิจห่วย" ได้</td></tr>
+    <tr><td class="bad">คุณภาพกำไรต้องสงสัย</td><td>งบไม่น่าเชื่อถือ</td><td>จบทันที — ตัวเลขที่เหลือคำนวณบนฐานที่ผิด</td></tr>
+    <tr><td class="mid">⚠️ เยอะไปหมด</td><td>ไม่ชัด</td><td>ทิ้งไว้รอ เช็คใหม่งบไตรมาสหน้า — ไม่ชัดไม่ซื้อ ตลาดมีหุ้นเป็นร้อย</td></tr>
+  </table></div>
+  <h3>8.3 เขียน Thesis 1 ประโยค (ถ้าผ่าน — บังคับเขียน)</h3>
+  <div class="formula">"จะสนใจตัวนี้เพราะ ______ (ของที่ตลาดอาจมองข้าม) · จะยืนยันเพิ่มเมื่อเห็น ______ (ในงบไตรมาสหน้า) · ถ้า ______ ผิด = ยกเลิก thesis"</div>
+  <div class="note">ประโยคที่เขียนไม่จบ = ยังไม่เข้าใจตัวเองพอที่จะลงเงิน</div>
+</section>
+
+<section id="num">
+  <h2>ชุดเกณฑ์ตัวเลขสำหรับกรองหุ้น (ตลาดไทย)</h2>
+  <p class="lead">ใช้กับข้อมูลที่ดึงได้ทั้งตลาด เพื่อคัด shortlist ก่อนเดิน template เต็ม — เกณฑ์คือ "ประตูแรก" ไม่ใช่ "คำตอบสุดท้าย"</p>
+  <div class="scroll"><table>
+    <tr><th>ค่า</th><th>เกณฑ์กรอง</th><th>ตัดทิ้งถ้า</th><th>เหตุผลของตัวเลข</th></tr>
+    <tr><td><b>ROE</b></td><td class="ok">≥ 12%</td><td>&lt; 10%</td><td>ค่าเฉลี่ย SET ~8-10% — ขอ ≥ 12% = เก่งกว่าตลาดชัดเจน</td></tr>
+    <tr><td><b>P/E (TTM)</b></td><td class="ok">3 – 12 เท่า</td><td>&gt; 15</td><td>บน 12 = ต่ำกว่าค่าเฉลี่ยตลาด / ล่าง 3 กันกำไรพิเศษที่ไม่ซ้ำ</td></tr>
+    <tr><td><b>EV/EBITDA</b></td><td class="ok">≤ 8 เท่า</td><td>&gt; 10</td><td>ยุติธรรมกว่า P/E เพราะรวมหนี้ — 8 = ระดับส่วนลด</td></tr>
+    <tr><td><b>EPS growth</b></td><td class="ok">≥ 10%</td><td>&lt; 5%</td><td>โต 2 หลัก = ขยายจริง ไม่ใช่ลอยตามเศรษฐกิจ</td></tr>
+    <tr><td><b>Payout ratio</b></td><td class="ok">20 – 90%</td><td>&gt; 90%</td><td>เกิน 90% = ไม่มีเบาะ ต้องตัดปันผลแน่</td></tr>
+    <tr><td><b>Dividend yield</b></td><td class="ok">≥ 3%</td><td>&lt; 2%</td><td>ค่าเฉลี่ยตลาดไทย ~3-4% — เกินค่าเฉลี่ย + จ่ายค่ารอ</td></tr>
+    <tr><td><b>FCF (TTM)</b></td><td class="ok">&gt; 0</td><td>≤ 0</td><td>กำไรต้องกลายเป็นเงินสดจริง</td></tr>
+    <tr><td><b>Market cap</b></td><td class="ok">≥ 1,000 ลบ.</td><td>&lt; 500 ลบ.</td><td>กันหุ้นจิ๋วสภาพคล่องต่ำ ซื้อขายลำบาก</td></tr>
+  </table></div>
+  <h3>เพิ่มเมื่อมีข้อมูลงบเต็ม</h3>
+  <div class="scroll"><table>
+    <tr><th>ค่า</th><th>เกณฑ์</th><th>เหตุผล</th></tr>
+    <tr><td><b>D/E</b></td><td>≤ 1.0 เท่า</td><td>หนี้เท่าทุนหรือต่ำกว่า = ปลอดภัยเมื่อเศรษฐกิจแย่</td></tr>
+    <tr><td><b>Net debt/EBITDA</b></td><td>≤ 3.0 (ดีสุด ≤ 2)</td><td>เกิน 3 = เปราะ</td></tr>
+    <tr><td><b>Net cash ÷ Market cap</b></td><td>&gt; 20% = จดจำเป็นพิเศษ</td><td>ไม่ใช่เกณฑ์ตัด แต่เป็นตัวหา hidden value</td></tr>
+    <tr><td><b>Gross margin</b></td><td>≥ ค่าเฉลี่ยกลุ่ม + ไม่หด 2 ปีติด</td><td>กันธุรกิจที่กำลังโดนบีบราคา</td></tr>
+  </table></div>
+  <h3>ใช้อย่างฉลาด: แบ่งเป็น "ตัดทิ้ง" กับ "จัดอันดับ"</h3>
+  <div class="good"><b>ใช้ตัดทิ้งจริง (ความปลอดภัย):</b> ROE, D/E, FCF, payout &gt; 90%, market cap, P/E &gt; 15 — ตกคือปัญหาโครงสร้าง ตัดได้เลย</div>
+  <div class="good"><b>ใช้จัดอันดับแทนการตัด (คุณภาพ):</b> P/E, EV/EBITDA, EPS growth, yield — เป็นเรื่อง "มาก-น้อย" ไม่ใช่ "มี-ไม่มี" ให้แปลงเป็นเปอร์เซ็นไทล์แล้วรวมคะแนนเรียงหาอันดับ 1-15 (แบบระบบ C2b-15) — ตัดเป็น hard cut จะเสียตัวดีๆ ไปเพราะพลาดเกณฑ์ไป 1-2 หน่วย</div>
+  <h3>ยกเว้นตามประเภทธุรกิจ</h3>
+  <div class="scroll"><table>
+    <tr><th>กลุ่ม</th><th>ปรับเกณฑ์</th></tr>
+    <tr><td><b>ธนาคาร/สินเชื่อ</b></td><td>ตัด ROIC/EV-EBITDA ออก ใช้ ROE ≥ 10% + P/B ≤ 1.0 + NPL &lt; 3% แทน</td></tr>
+    <tr><td><b>หุ้นวงจร</b> (น้ำมัน เหล็ก)</td><td>ขยาย ROE เป็น ≥ 10% แต่ต้องเช็คตำแหน่งวงจรกำไรก่อน</td></tr>
+    <tr><td><b>REIT/กองทรัสต์</b></td><td>ใช้ yield ≥ 5.5-6% เป็นตัวตั้งแทนทุกอย่าง</td></tr>
+  </table></div>
+  <div class="note"><b>ปรับตามผล:</b> กรองตลาดเต็ม ~800 ตัวแล้วเหลือ 30-60 ตัว = เกณฑ์กำลังดี · เหลือ &gt; 100 เข้มขึ้น (ROE ≥ 15, P/E ≤ 10) · เหลือ &lt; 15 ผ่อน EPS growth เป็น ≥ 5 ก่อนตัวอื่น (การเติบโตผันผวนที่สุด)</div>
+</section>
+
+<section id="src">
+  <h2>แหล่งข้อมูลสำหรับทุกช่องกรอก</h2>
+  <div class="scroll"><table>
+    <tr><th>ข้อมูล</th><th>แหล่ง</th></tr>
+    <tr><td>งบการเงิน 5 ปี + หมายเหตุ</td><td>set.or.th → ข้อมูลบริษัทจดทะเบียน / One Report บนเว็บบริษัท</td></tr>
+    <tr><td>ราคา + P/E, P/B, ปันผล</td><td>เว็บโบรกฯ หรือ yfinance (ต่อท้ายด้วย .BK เช่น IROYAL.BK)</td></tr>
+    <tr><td>จำนวนหุ้น 5 ปี + goodwill + related party</td><td>งบและหมายเหตุประกอบงบ (ย้อนหลัง)</td></tr>
+  </table></div>
+</section>
+
+</main>
+
+<a class="up" href="#top" aria-label="กลับขึ้นด้านบน">↑</a>
+
+<footer>
+  <div class="wrap">
+    <p><b>Disclaimer:</b> เว็บนี้เป็นเครื่องมือวิจัยและการศึกษา รวบรวมจาก framework การวิเคราะห์ที่เผยแพร่สู่สาธารณะ (Damodaran valuation, Christopher Mayer 100 Baggers, Piotroski/Altman scores) — ไม่ใช่คำแนะนำการลงทุน เกณฑ์ ✅ ไม่การันตีผลตอบแทน ผู้อ่านตัดสินใจเองเสมอ</p>
+    <p style="margin-top:8px">Checklist และ scorecard จะถูกจำไว้ในเบราว์เซอร์ของอุปกรณ์นี้เท่านั้น (localStorage) — ไม่มีการส่งข้อมูลออกจากเครื่อง</p>
+    <p id="updated" style="margin-top:8px;opacity:.7"></p>
+  </div>
+</footer>
+
+<script>
+// checkboxes
+document.querySelectorAll('.ck').forEach(cb=>{
+  const k='sgp-'+cb.id;
+  if(localStorage.getItem(k)==='1') cb.checked=true;
+  cb.addEventListener('change',()=>{localStorage.setItem(k,cb.checked?'1':'0');progress();});
+});
+function progress(){
+  const all=document.querySelectorAll('.ck'),done=document.querySelectorAll('.ck:checked');
+  document.getElementById('bar').style.width=(all.length?100*done.length/all.length:0)+'%';
+}
+progress();
+
+// scorecard
+const ROWS=[
+ ['คุณภาพกำไร','Margin 3 ตัว ทิศทางดีขึ้น'],
+ ['ผลตอบแทน','ROE ≥ 12% / ROIC &gt; 10-12%'],
+ ['การเติบโต','Growth Gate 3/3 + EPS เร่ง'],
+ ['เงินสด','FCF บวก + CapEx ผลิตผล'],
+ ['งบดุล','D/E ปลอดภัย / Net debt ต่ำ'],
+ ['ผู้บริหาร','ไม่เจือจาง + goodwill ต่ำ + related party สะอาด'],
+ ['ราคา','ต่ำกว่าอดีตตัวเอง/เพื่อน เมื่อเทียบคุณภาพ']
+];
+const LBL={p:'✅ ผ่าน',w:'⚠️ เฝ้าระวัง',f:'❌ ไม่ผ่าน'};
+const sc=document.getElementById('scorecard'),state=JSON.parse(localStorage.getItem('sgp-sc')||'{}');
+ROWS.forEach((r,i)=>{
+  const d=document.createElement('div');d.className='sc-row';
+  d.innerHTML='<div class="sc-name">'+r[0]+'<small>'+r[1]+'</small></div>';
+  const b=document.createElement('div');b.className='sc-btns';
+  ['p','w','f'].forEach(v=>{
+    const btn=document.createElement('button');btn.textContent=LBL[v];btn.dataset.v=v;
+    if(state[i]===v)btn.classList.add('on');
+    btn.onclick=()=>{
+      state[i]=state[i]===v?null:v;
+      localStorage.setItem('sgp-sc',JSON.stringify(state));
+      b.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===state[i]));
+      summary();
+    };
+    b.appendChild(btn);
+  });
+  d.appendChild(b);sc.appendChild(d);
+});
+function summary(){
+  const c={p:0,w:0,f:0};Object.values(state).forEach(v=>{if(v)c[v]++;});
+  const el=document.getElementById('sc-sum');
+  if(!(c.p||c.w||c.f)){el.textContent='เริ่มกดประเมินแต่ละหมวด — สรุปจะโผล่ตรงนี้';return;}
+  let msg='ผล: '+c.p+' ผ่าน · '+c.w+' เฝ้าระวัง · '+c.f+' ไม่ผ่าน — ';
+  msg += c.f>0 ? 'มี ❌ อย่างน้อย 1 หมวด → กลับไปอ่านกฎ 8.2: ถ้าตก "คุณภาพกำไร" จบทันที ถ้าตกหมวดอื่นชั่วคราว ใส่ watchlist รองบไตรมาสหน้า'
+    : c.w>=3 ? '⚠️ หลายหมวด — ตามกฎ 8.2: ไม่ชัดไม่ซื้อ ทิ้งไว้รอแล้วเช็คใหม่'
+    : c.p>=5 ? 'ใกล้เคมี "ดี + โต + ถูก" → ไปต่อขั้นลึก: reverse DCF ก่อนตัดสินใจลงเงิน'
+    : 'กำลังดี — เติมหมวดที่ยังว่างให้ครบก่อนสรุป';
+  el.textContent=msg;
+}
+summary();
+
+document.getElementById('updated').textContent='อัปเดต: '+new Date().toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
+</script>
+</body>
+</html>
